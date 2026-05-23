@@ -1,8 +1,10 @@
+import { User } from '../../users/entities/user.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('tenants')
@@ -26,6 +28,9 @@ export class Tenant {
     default: true,
   })
   active: boolean;
+
+  @OneToMany(() => User, (user) => user.tenant)
+  users: User[];
 
   @CreateDateColumn()
   createdAt: Date;
