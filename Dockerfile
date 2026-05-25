@@ -8,6 +8,12 @@ RUN yarn install
 
 COPY . .
 
+RUN yarn build
+
+RUN chown -R node:node /usr/src/app
+
+USER node
+
 EXPOSE 3000
 
-CMD ["yarn", "start:dev"]
+CMD ["yarn", "start:prod"]
