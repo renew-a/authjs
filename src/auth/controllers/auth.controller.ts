@@ -1,15 +1,22 @@
-import { Body, Controller, Post, UseGuards, Req } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+
 import { AuthService } from '../services/auth.service';
 import { FirebaseAuthGuard } from '../guards/firebase-auth.guard';
 import { RegisterDto } from '../dtos/register.dto';
+import { CurrentUser } from '../decorators/current-user.decorator';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(FirebaseAuthGuard)
   @Post('register')
-  register(@Body() dto: RegisterDto, @Req() req: any) {
-    return this.authService.register(dto);
+  @UseGuards(FirebaseAuthGuard)
+  async register(
+    @Body() dto: RegisterDto,
+
+    @CurrentUser()
+    user: any,
+  ) {
+    return this.authService.register(dto, user);
   }
 }

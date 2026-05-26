@@ -5,6 +5,7 @@ import { TenantsModule } from './tenants/tenants.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { FirebaseModule } from './firebase/firebase.module';
+import { GroupsModule } from './groups/groups.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { FirebaseModule } from './firebase/firebase.module';
     UsersModule,
     AuthModule,
     FirebaseModule,
+    GroupsModule,
   ],
 })
 export class AppModule {}

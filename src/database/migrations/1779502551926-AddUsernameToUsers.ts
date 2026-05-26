@@ -1,14 +1,15 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AddUsernameToUsers1779502551926 implements MigrationInterface {
-    name = 'AddUsernameToUsers1779502551926'
+  name = 'AddUsernameToUsers1779502551926';
 
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`ALTER TABLE "users" ADD "username" character varying NOT NULL`);
-    }
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `ALTER TABLE "users" ADD "username" character varying NOT NULL`,
+    );
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`ALTER TABLE "users" DROP COLUMN "username"`);
-    }
-
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`ALTER TABLE "users" DROP COLUMN "username"`);
+  }
 }
