@@ -2,21 +2,16 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToMany,
+  ManyToMany,
   CreateDateColumn,
 } from 'typeorm';
 
 import { User } from '../../users/entities/user.entity';
 
-@Entity('tenants')
-export class Tenant {
+@Entity('groups')
+export class Group {
   @PrimaryGeneratedColumn('uuid')
   id: string;
-
-  @Column({
-    unique: true,
-  })
-  firebaseTenantId: string;
 
   @Column({
     unique: true,
@@ -24,16 +19,11 @@ export class Tenant {
   name: string;
 
   @Column({
-    unique: true,
+    nullable: true,
   })
-  slug: string;
+  description: string;
 
-  @Column({
-    default: true,
-  })
-  active: boolean;
-
-  @OneToMany(() => User, (user) => user.tenant)
+  @ManyToMany(() => User, (user) => user.groups)
   users: User[];
 
   @CreateDateColumn()
