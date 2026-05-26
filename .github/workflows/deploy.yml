@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -22,10 +23,22 @@ jobs:
           key: ${{ secrets.AWS_SSH_KEY }}
 
           script: |
+
             cd authjs
 
-            git pull origin develop
+            git fetch origin
 
-            docker compose -f docker-compose.prod.yml down
+            git reset --hard origin/develop
 
-            docker compose -f docker-compose.prod.yml up -d --build
+            docker compose \
+            -f docker-compose.prod.yml \
+            up -d --build
+
+            echo "Waiting postgres..."
+
+            sleep 20
+
+            docker exec authjs_api \
+            yarn migration:run || true
+
+            docker image prune -f
