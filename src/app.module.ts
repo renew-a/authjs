@@ -26,6 +26,12 @@ import { GroupsModule } from './groups/groups.module';
 
       database: process.env.DB_DATABASE,
 
+      ssl: process.env.NODE_ENV === 'production'
+      ? {
+        rejectUnauthorized: false,
+      }
+      : false,
+
       autoLoadEntities: true,
 
       synchronize: false,
