@@ -15,15 +15,16 @@ export default new DataSource({
 
   database: process.env.DB_DATABASE,
 
-  ssl:  process.env.NODE_ENV === 'production'
-    ? {
-        rejectUnauthorized: false,
-      }
-    : false,
+  ssl:
+    process.env.NODE_ENV === 'production'
+      ? {
+          rejectUnauthorized: false,
+        }
+      : false,
 
-  entities: ['src/**/*.entity.ts'],
+  entities: ['dist/**/*.entity.js'],
 
-  migrations: ['src/database/migrations/*.ts'],
+  migrations: ['dist/database/migrations/*.js'],
 
   synchronize: false,
 });
