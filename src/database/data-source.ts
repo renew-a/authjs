@@ -23,7 +23,6 @@ export default new DataSource({
       : false,
 
   entities: ['dist/**/*.entity.js'],
-
   migrations: ['dist/database/migrations/*.js'],
 
   synchronize: false,
