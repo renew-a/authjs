@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
 
   api:
@@ -9,39 +7,15 @@ services:
       context: .
       dockerfile: Dockerfile
 
-    ports:
-      - "${APP_PORT:-3000}:3000"
-
-    env_file:
-      - .env
-
-    depends_on:
-      - postgres
-      - redis
-
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-
-    command: yarn start:dev
-
-  postgres:
-    image: postgres:16
-
-    container_name: authjs_postgres
-
     restart: always
 
-    environment:
-      POSTGRES_DB: ${DB_DATABASE}
-      POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-
     ports:
-      - "${DB_PORT_EXTERNAL:-5433}:5432"
+      - "3000:3000"
 
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - .env.prod
+
+    command: node dist/main
 
   redis:
     image: redis:7-alpine
@@ -51,11 +25,4 @@ services:
     restart: always
 
     ports:
-      - "${REDIS_PORT_EXTERNAL:-6379}:6379"
-
-    volumes:
-      - redis_data:/data
-
-volumes:
-  postgres_data:
-  redis_data:
+      - "6379:6379"
