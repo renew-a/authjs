@@ -39,6 +39,6 @@ jobs:
             sleep 20
 
             docker exec authjs_api \
-            yarn migration:run || true
+            yarn migration:run:prod || true
 
             docker image prune -f
