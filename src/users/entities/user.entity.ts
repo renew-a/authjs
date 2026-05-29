@@ -11,7 +11,6 @@ import {
 } from 'typeorm';
 
 import { Tenant } from '../../tenants/entities/tenant.entity';
-import { Group } from '../../groups/entities/group.entity';
 
 @Entity('users')
 @Index(['email', 'tenantId'], {
@@ -48,12 +47,6 @@ export class User {
     name: 'tenantId',
   })
   tenant: Tenant;
-
-  @ManyToMany(() => Group, (group) => group.users)
-  @JoinTable({
-    name: 'user_groups',
-  })
-  groups: Group[];
 
   @CreateDateColumn()
   createdAt: Date;
